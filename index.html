@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bubu Dudu Chat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fceff5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .chat-container {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-header {
+      background: linear-gradient(to right, #f89fc2, #f9b7dd);
+      color: white;
+      text-align: center;
+      padding: 14px;
+      font-size: 1.3em;
+    }
+    .chat-messages {
+      flex-grow: 1;
+      padding: 14px;
+      overflow-y: auto;
+      max-height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+    .message {
+      margin-bottom: 10px;
+      padding: 10px 14px;
+      border-radius: 20px;
+      max-width: 70%;
+      word-wrap: break-word;
+    }
+    .sent {
+      align-self: flex-end;
+      background-color: #dcf8c6;
+    }
+    .received {
+      align-self: flex-start;
+      background-color: #f1f0f0;
+    }
+    .chat-input {
+      display: flex;
+      padding: 12px;
+      border-top: 1px solid #eee;
+    }
+    .chat-input input {
+      flex-grow: 1;
+      padding: 10px;
+      border-radius: 20px;
+      border: 1px solid #ddd;
+      outline: none;
+      font-size: 1em;
+      margin-right: 10px;
+    }
+    .chat-input button {
+      padding: 10px 15px;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .chat-input button:hover {
+      background-color: #e755a3;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">💬 Bubu Dudu Chat 💕</div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input">
+      <input type="text" id="messageInput" placeholder="Say something sweet...">
+      <button id="sendMessageBtn">Send</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const chatMessages = document.getElementById('chatMessages');
+      const messageInput = document.getElementById('messageInput');
+      const sendBtn = document.getElementById('sendMessageBtn');
+
+      sendBtn.addEventListener('click', sendMessage);
+      messageInput.addEventListener('keypress', e => {
+        if (e.key === 'Enter') sendMessage();
+      });
+
+      function sendMessage() {
+        const msg = messageInput.value.trim();
+        if (!msg) return;
+        appendMessage(msg, 'sent');
+        messageInput.value = '';
+        setTimeout(() => {
+          appendMessage("I love you Bubu! 💕", 'received');
+        }, 1000);
+      }
+
+      function appendMessage(text, type) {
+        const div = document.createElement('div');
+        div.className = 'message ' + type;
+        div.textContent = text;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    });
+  </script>
+</body>
+</html>
